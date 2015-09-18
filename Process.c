@@ -256,7 +256,7 @@ const char *Process_fieldTitles[] = {
    "", "    PID ", "Command ", "S ", "   PPID ", "   PGRP ", "   SESN ",
    "  TTY ", "  TPGID ", "- ", "     MINFLT ", "    CMINFLT ", "     MAJFLT ", "    CMAJFLT ",
    " UTIME+  ", " STIME+  ", " CUTIME+ ", " CSTIME+ ", "PRI ", " NI ", "- ",
-   " START+  ", "- ", "- ", "- ", "- ", "- ", "- ",
+   " START ", "- ", "- ", "- ", "- ", "- ", "- ",
    "- ", "- ", "- ", "- ", "- ", "- ", "- ",
    "- ", "- ", "- ", "CPU ", " VIRT ", "  RES ", "  SHR ",
    " CODE ", " DATA ", " LIB ", " DIRTY ", " UID ", "CPU% ", "MEM% ",
@@ -438,7 +438,7 @@ static void Process_printTime(RichString* str, unsigned long long t) {
 static void Process_printTime01(RichString* str, const char* starttime_show) {
     RichString_appendn(str, CRT_colors[DEFAULT_COLOR], starttime_show, 2);
     RichString_appendn(str, CRT_colors[CPU_GUEST], starttime_show + 2, 2);
-    RichString_appendn(str, CRT_colors[DEFAULT_COLOR], starttime_show + 4, 2);
+    RichString_appendn(str, CRT_colors[DEFAULT_COLOR], starttime_show + 4, 3);
 }
 
 static inline void Process_writeCommand(Process* this, int attr, int baseattr, RichString* str) {

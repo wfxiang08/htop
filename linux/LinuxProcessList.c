@@ -192,7 +192,7 @@ static bool LinuxProcessList_statProcessDir(Process* process, const char* dirnam
    // 24小时以外，则采用
    //       09:13:20
    // strftime(process->starttime_show, 7, ((ctime > curTime - 86400) ? "%R " : "%b%d "), &date);
-   strftime(process->starttime_show, 9, "%d%H%M", &date);
+   strftime(process->starttime_show, 10, "%d%H%M ", &date); // 最后一个空格用于格式化
    
    
    return true;
