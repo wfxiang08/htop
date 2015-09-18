@@ -762,6 +762,7 @@ long Process_pidCompare(const void* v1, const void* v2) {
    return (p1->pid - p2->pid);
 }
 
+// 进程排序
 long Process_compare(const void* v1, const void* v2) {
    Process *p1, *p2;
    ProcessList *pl = ((Process*)v1)->pl;
