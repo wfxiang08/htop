@@ -251,11 +251,12 @@ const int Process_fieldFlags[] = {
    PROCESS_FLAG_IOPRIO
 };
 
+// 通过标题的宽度来调整整个Column的宽度
 const char *Process_fieldTitles[] = {
    "", "    PID ", "Command ", "S ", "   PPID ", "   PGRP ", "   SESN ",
    "  TTY ", "  TPGID ", "- ", "     MINFLT ", "    CMINFLT ", "     MAJFLT ", "    CMAJFLT ",
    " UTIME+  ", " STIME+  ", " CUTIME+ ", " CSTIME+ ", "PRI ", " NI ", "- ",
-   "START ", "- ", "- ", "- ", "- ", "- ", "- ",
+   " START  ", "- ", "- ", "- ", "- ", "- ", "- ",
    "- ", "- ", "- ", "- ", "- ", "- ", "- ",
    "- ", "- ", "- ", "CPU ", " VIRT ", "  RES ", "  SHR ",
    " CODE ", " DATA ", " LIB ", " DIRTY ", " UID ", "CPU% ", "MEM% ",
@@ -433,6 +434,13 @@ static void Process_printTime(RichString* str, unsigned long long t) {
    }
 }
 
+// 091010 --> 09(red) 1010
+static void Process_printTime01(RichString* str, const char* starttime_show) {
+    RichString_appendn(str, CRT_colors[LARGE_NUMBER], starttime_show, 2);
+    RichString_appendn(str, CRT_colors[MEMORY_BUFFERS], starttime_show + 2, 2);
+    RichString_appendn(str, CRT_colors[DEFAULT_COLOR], starttime_show + 4, 2);
+}
+
 static inline void Process_writeCommand(Process* this, int attr, int baseattr, RichString* str) {
    int start = RichString_size(str);
    RichString_append(str, attr, this->comm);
@@ -598,7 +606,10 @@ static void Process_writeField(Process* this, RichString* str, ProcessField fiel
       }
       break;
    }
-   case STARTTIME: snprintf(buffer, n, "%s", this->starttime_show); break;
+   // case STARTTIME: snprintf(buffer, n, "%s", this->starttime_show); break;
+   case STARTTIME: Process_printTime01(str, this->starttime_show); return;
+   // case TIME: Process_printTime(str, this->utime + this->stime); return;
+           
    #ifdef HAVE_OPENVZ
    case CTID: snprintf(buffer, n, "%7u ", this->ctid); break;
    case VPID: snprintf(buffer, n, Process_pidFormat, this->vpid); break;
@@ -634,8 +645,11 @@ static void Process_display(Object* cast, RichString* out) {
    Process* this = (Process*) cast;
    ProcessField* fields = this->pl->fields;
    RichString_prune(out);
+    
+   // 展示每一个Fields 
    for (int i = 0; fields[i]; i++)
       Process_writeField(this, out, fields[i]);
+
    if (this->pl->shadowOtherUsers && (int)this->st_uid != Process_getuid)
       RichString_setAttr(out, CRT_colors[PROCESS_SHADOW]);
    if (this->tag == true)
