@@ -256,7 +256,7 @@ const char *Process_fieldTitles[] = {
    "", "    PID ", "Command ", "S ", "   PPID ", "   PGRP ", "   SESN ",
    "  TTY ", "  TPGID ", "- ", "     MINFLT ", "    CMINFLT ", "     MAJFLT ", "    CMAJFLT ",
    " UTIME+  ", " STIME+  ", " CUTIME+ ", " CSTIME+ ", "PRI ", " NI ", "- ",
-   " START  ", "- ", "- ", "- ", "- ", "- ", "- ",
+   " START+  ", "- ", "- ", "- ", "- ", "- ", "- ",
    "- ", "- ", "- ", "- ", "- ", "- ", "- ",
    "- ", "- ", "- ", "CPU ", " VIRT ", "  RES ", "  SHR ",
    " CODE ", " DATA ", " LIB ", " DIRTY ", " UID ", "CPU% ", "MEM% ",
