@@ -436,8 +436,8 @@ static void Process_printTime(RichString* str, unsigned long long t) {
 
 // 091010 --> 09(red) 1010
 static void Process_printTime01(RichString* str, const char* starttime_show) {
-    RichString_appendn(str, CRT_colors[LARGE_NUMBER], starttime_show, 2);
-    RichString_appendn(str, CRT_colors[MEMORY_BUFFERS], starttime_show + 2, 2);
+    RichString_appendn(str, CRT_colors[DEFAULT_COLOR], starttime_show, 2);
+    RichString_appendn(str, CRT_colors[CPU_GUEST], starttime_show + 2, 2);
     RichString_appendn(str, CRT_colors[DEFAULT_COLOR], starttime_show + 4, 2);
 }
 
